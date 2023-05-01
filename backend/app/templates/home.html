@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}
+REST API
+{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="FEDSWE API Logo" class="mb-3" style="width: 30%;"> 
+  <div class="container border rounded p-5 mb-3 shadow" id="outline" style="background-color: rgba(255, 255, 255, 0.3);">
+    <h3 class="mb-4" style="color: white;">REST API<br>User Management</h3>  
+    <button class="btn btn-secondary shadow mb-3" style="width: 20em;" id="get-users-btn" data-bs-toggle="modal" data-bs-target="#get-users-modal">GET /api/users?=&lt;user_name&gt;</button>
+    <button class="btn btn-secondary shadow mb-3" style="width: 20em;" id="get-user-btn" data-bs-toggle="modal" data-bs-target="#get-user-modal">GET /api/users/&lt;user_id&gt;</button>
+    <button class="btn btn-secondary shadow mb-3" style="width: 20em;" id="create-btn" data-bs-toggle="modal" data-bs-target="#create-modal">POST /api/create</button>
+    <button class="btn btn-secondary shadow mb-3" style="width: 20em;" id="update-btn" data-bs-toggle="modal" data-bs-target="#update-modal">PUT /api/update/&lt;user_id&gt;</button>
+    <button class="btn btn-secondary shadow mb-3" style="width: 20em;" id="delete-btn" data-bs-toggle="modal" data-bs-target="#delete-modal">DELETE /api/delete/&lt;user_id&gt;</button>
+  </div>
+</div>
+
+<!-- Get Users Modal -->
+<div class="modal fade" id="get-users-modal" tabindex="-1" aria-labelledby="get-users-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="get-users-modal-label">GET User by Username</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The API endpoint <strong style="color: #376896;">/api/users?=&lt;username&gt;</strong> accepts a 'username' parameter in the request. If a valid 'username' is provided, it retrieves that username from the database and returns the user ID and username in a JSON response. If an invalid or no 'username' is provided, it returns an error in a JSON response.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Get User Modal -->
+<div class="modal fade" id="get-user-modal" tabindex="-1" aria-labelledby="get-users-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="get-users-modal-label">GET User by User ID</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The API endpoint <strong style="color: #376896;">/api/users/&lt;user_id&gt;</strong> retrieves a specific user from a database based on their ID. If the user is found, it returns their ID and username in a JSON response. If the user is not found, it returns a 404 error.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="create-modal" tabindex="-1" aria-labelledby="get-users-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="get-users-modal-label">POST - Create User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The API endpoint <strong style="color: #376896;">/api/create</strong> creates a new user based on the 'username' and 'password' fields provided in the request JSON. It checks if the 'username' already exists in the database and returns an error if it does. If the input is valid, it creates a new user instance, saves it to the database, and returns a JSON response indicating success with the user's ID and username.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Modal -->
+<div class="modal fade" id="update-modal" tabindex="-1" aria-labelledby="get-users-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="get-users-modal-label">PUT - Update Username by User ID</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The API endpoint <strong style="color: #376896;">/api/update/&lt;user_id&gt;</strong> updates a user's 'username' field in the database based on the user ID and new username value provided in the request JSON. It returns a JSON response indicating the success or failure of the update, along with the updated user's ID and username.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="get-users-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="get-users-modal-label">DELETE by User ID</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The API endpoint <strong style="color: #376896;">/api/delete/&lt;user_id&gt;</strong> deletes a user from the database based on the provided user ID. It retrieves the user instance, deletes it from the database, and returns a JSON response indicating success with a message that the user has been deleted.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Copy API paths to clipboard on button click -->
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+  }
+
+  document.getElementById("get-users-btn").addEventListener("click", function () {
+    copyToClipboard("http://localhost:5000/api/users?username=<username>");
+  });
+
+  document.getElementById("get-user-btn").addEventListener("click", function () {
+    copyToClipboard("http://127.0.0.1:5000/api/users/<user_id>");
+  });
+
+  document.getElementById("create-btn").addEventListener("click", function () {
+    copyToClipboard("http://127.0.0.1:5000/api/create");
+  });
+
+  document.getElementById("update-btn").addEventListener("click", function () {
+    copyToClipboard("http://127.0.0.1:5000/api/update/<user_id>");
+  });
+
+  document.getElementById("delete-btn").addEventListener("click", function () {
+    copyToClipboard("http://127.0.0.1:5000/api/delete/<user_id>");
+  });
+</script>
+{% endblock %}

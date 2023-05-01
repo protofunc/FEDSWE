@@ -1,0 +1,13 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# backend
+/fd_venv
+
+# misc
+/__pycache__
+.env
+
+# .txt
+buglog.txt
+notes.txt
+readme.txt
